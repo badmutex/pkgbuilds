@@ -1,0 +1,24 @@
+pkgname=gromacs
+pkgver=4.5.2
+pkgrel=1
+pkgdesc="A fast Molecular Dynamics program based on the GROMOS force field"
+url="http://www.gromacs.org/"
+license=("GPL")
+arch=(i686 x86_64)
+depends=('fftw' 'lesstif')
+options=(!libtool)
+source=(ftp://ftp.gromacs.org/pub/gromacs/gromacs-$pkgver.tar.gz)
+md5sums=('3d74c7b363a3b124e48424375b49ce67')
+
+build() {
+  export CPPFLAGS="-I/usr/include"
+  export LDFLAGS="-L/usr/lib"
+  mkdir -p ${startdir}/pkg/usr/bin  
+  cd $startdir/src/gromacs-${pkgver}/
+ 
+  jobs=$(( $(grep processor /proc/cpuinfo | wc -l) + 1 ))
+
+  ./configure --prefix=/usr --enable-shared
+  make -j$jobs || return 1
+  make DESTDIR="${startdir}/pkg" install || return 1
+}
