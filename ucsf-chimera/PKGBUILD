@@ -1,0 +1,51 @@
+pkgname=ucsf-chimera
+pkgver=1.5.2
+pkgrel=1
+pkgdesc="an extensible molecular modeling system"
+url="http://www.cgl.ucsf.edu/chimera"
+license=("custom:ucsfchimera")
+arch=(i686 x86_64)
+[ $CARCH = 'x86_64' ] && _arch='x86_64' && _url_arch='_x86_64'
+[ $CARCH = 'i686' ]   && _arch='' && _url_arch=''
+
+makedepends=('curl' 'unzip')
+optdepends=('modeller: homology modelling support')
+
+source=("LICENSE")
+_source="https://www.cgl.ucsf.edu/cgi-bin/chimera-get.py?file=linux${_url_arch}/chimera-$pkgver-linux${_url_arch}.bin"
+
+md5sums=('c0541602c893ac365fb834812d645796')
+
+install='install.sh'
+
+
+build() {
+
+	# installation
+	installroot=/opt/ucsf-chimera
+	target=$pkgdir/$installroot
+	mkdir -p $target
+	exe=chimera-installer.bin
+	[ ! -f $exe ] && curl -d "ident=SomethingDynamic&file=linux${_url_arch}/chimera-$pkgver-linux${_url_arch}.bin&choice=Accept" ${_source} > $exe
+	chmod +x $exe
+	unzip $exe
+	./chimera.bin -q -d $target
+
+
+	# set up profile
+	profile=$pkgdir/etc/profile.d/$pkgname.sh
+	mkdir -p $(dirname $profile)
+	cat <<EOF>$profile
+export PATH=$installroot/bin:\$PATH
+export MANPATH=$installroot/share/man:\$MANPATH
+export INCLUDE=$installroot/include:\$INCLUDE
+export LD_LIBRARY_PATH=$installroot/lib:\$LD_LIBRARY_PATH
+EOF
+	chmod +x $profile
+
+	# add licence file
+	license_dir=$pkgdir/usr/share/licenses/$pkgname
+	mkdir -p $license_dir
+	cp LICENSE $license_dir
+
+}
