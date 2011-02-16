@@ -38,8 +38,6 @@ build() {
 	cat <<EOF>$profile
 export PATH=$installroot/bin:\$PATH
 export MANPATH=$installroot/share/man:\$MANPATH
-export INCLUDE=$installroot/include:\$INCLUDE
-export LD_LIBRARY_PATH=$installroot/lib:\$LD_LIBRARY_PATH
 EOF
 	chmod +x $profile
 
