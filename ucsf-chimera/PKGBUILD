@@ -1,7 +1,7 @@
 pkgname=ucsf-chimera
 pkgver=1.5.2
 pkgrel=1
-pkgdesc="an extensible molecular modeling system"
+pkgdesc="An extensible molecular modeling system"
 url="http://www.cgl.ucsf.edu/chimera"
 license=("custom:ucsfchimera")
 arch=(i686 x86_64)
@@ -45,5 +45,21 @@ EOF
 	license_dir=$pkgdir/usr/share/licenses/$pkgname
 	mkdir -p $license_dir
 	cp LICENSE $license_dir
+
+
+	# add icon to menu
+	desktop=$pkgdir/usr/share/applications/$pkgname.desktop
+	mkdir -p $(dirname $desktop)
+	cat <<EOF>$desktop
+[Desktop Entry]
+Version=$pkgver
+Type=Application
+Name=UCSF Chimera
+GenericName=$pkgdesc
+Comment=$pkgdesc
+Exec=$installroot/bin/chimera
+Icon=$installroot/chimeraIcon.png
+Categories=Science;Chemistry;Education;
+EOF
 
 }
