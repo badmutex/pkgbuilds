@@ -1,0 +1,41 @@
+pkgname=ambertools
+pkgver=1.4
+pkgrel=1
+pkgdesc="The AmberTools set of Molecular Dynamics programs"
+url="http://ambermd.org/"
+license=("GPL")
+arch=(i686 x86_64)
+makedepends=('curl')
+# options=(!libtool)
+source=()
+md5sums=()
+install='ambertools.install'
+
+
+_src='http://ambermd.rutgers.edu/cgi-bin/AmberTools-get.pl'
+_post='Name=hello&Institution=World&City=Springfield&State=Other&Country=United%20States'
+
+build() {
+
+	archive=ambertools.tar.bz2
+	[ ! -f $archive ] && curl -d "$_post" "$_src" > $archive
+	archive=$(readlink -f $archive)
+	cd $pkgdir
+	target=opt/$pkgname/$pkgver
+	mkdir -p $target
+	cd $target
+	tar xf $archive
+	cd amber11/AmberTools/src
+	./configure gnu
+	make install
+
+	profile=$pkgdir/etc/profile.d/$pkgname.sh
+	mkdir -p $(dirname $profile)
+	cat <<EOF>$profile
+export AMBERHOME=/$target/amber11
+export PATH=\$AMBERHOME/bin:\$PATH
+EOF
+	chmod +x $profile
+	
+
+}
