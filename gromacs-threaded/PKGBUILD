@@ -1,5 +1,5 @@
 pkgname=gromacs
-pkgver=4.5.2
+pkgver=4.5.3
 pkgrel=1
 pkgdesc="A fast Molecular Dynamics program based on the GROMOS force field"
 url="http://www.gromacs.org/"
@@ -8,7 +8,7 @@ arch=(i686 x86_64)
 depends=('fftw' 'lesstif')
 options=(!libtool)
 source=(ftp://ftp.gromacs.org/pub/gromacs/gromacs-$pkgver.tar.gz)
-md5sums=('3d74c7b363a3b124e48424375b49ce67')
+md5sums=('d5911585cd0e0b996dbbdcfb4c3bcf6b')
 
 build() {
   export CPPFLAGS="-I/usr/include"
