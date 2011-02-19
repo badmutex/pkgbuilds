@@ -7,7 +7,6 @@ license=("GPL")
 arch=(i686 x86_64)
 depends=('fftw' 'lesstif')
 options=(!libtool)
-makedepends=('cmake')
 source=(ftp://ftp.gromacs.org/pub/gromacs/gromacs-$pkgver.tar.gz)
 md5sums=('d5911585cd0e0b996dbbdcfb4c3bcf6b')
 
