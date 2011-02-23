@@ -1,0 +1,25 @@
+pkgname=nix
+pkgver=0.16
+pkgrel=1
+pkgdesc="A purely functional package manager"
+url="http://nixos.org/nix/"
+license=("GPL")
+arch=(i686 x86_64)
+
+source=("http://hydra.nixos.org/build/565033/download/4/nix-${pkgver}.tar.bz2")
+sha1sums=('4f60894f58827c92ce94b4a6639c05e9e6388e53')
+
+# install='install.sh'
+
+
+build() {
+
+	cd $srcdir/nix-$pkgver
+
+	# skip building docs as they require docbook{,-rng,-xsl} which have been giving problems
+	sed -i 's/^\(SUBDIRS =\)\(.*\) doc/\1\2/' Makefile.in
+	./configure --prefix=/usr/local --sysconfdir=/etc --localstatedir=/var
+	make -j 5
+	make DESTDIR=${pkgdir} install
+
+}
