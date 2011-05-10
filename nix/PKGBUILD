@@ -19,7 +19,7 @@ build() {
 	# skip building docs as they require docbook{,-rng,-xsl} which have been giving problems
 	sed -i 's/^\(SUBDIRS =\)\(.*\) doc/\1\2/' Makefile.in
 	./configure --prefix=/usr/local --sysconfdir=/etc --localstatedir=/var
-	make -j 5
+	make
 	make DESTDIR=${pkgdir} install
 
 }
