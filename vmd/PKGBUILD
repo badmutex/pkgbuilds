@@ -35,13 +35,4 @@ build() {
 
 	cd $_prefix/bin
 	sed -ri "s:defaultvmddir=.*$:defaultvmddir=\"$prefix/lib/vmd\":" vmd
-
-	cd $startdir
-	desktopdir=$pkgdir/usr/share/applications
-	pixmapdir=$pkgdir/usr/share/pixmaps
-	mkdir -p $desktopdir
-	mkdir -p $pixmapdir
-	cp vmd.desktop $desktopdir
-	cp vmd.png $pixmapdir
-
 }
