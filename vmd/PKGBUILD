@@ -1,7 +1,7 @@
 pkgname=vmd
 pkgver=1.9
 pkgrel=1
-pkgdesc="MD is a molecular visualization program for displaying, animating, and analyzing large biomolecular systems using 3-D graphics and built-in scripting."
+pkgdesc="VMD is a molecular visualization program for displaying, animating, and analyzing large biomolecular systems using 3-D graphics and built-in scripting."
 url="http://www.ks.uiuc.edu/Research/vmd/"
 license=("custom:VMD")
 arch=(i686 x86_64)
@@ -15,13 +15,8 @@ makedepends=('curl' 'make' 'sed')
 depends=('sqlite3' 'libxft' 'libgl' 'cuda' 'mesa' 'expat' 'libxinerama' 'libx11' 'libxi' 'tcl' 'perl' 'tcsh')
 optdepends=('openbabel: for additional file format compatibility' 'netcdf: for reading MMTK and AMBER 9 trajectories')
 # options=(!libtool)
-source=("http://www.ks.uiuc.edu/Research/vmd/vmd-1.9/files/final/vmd-${pkgver}.bin.LINUX${_url_arch}.opengl.tar.gz"
-        'vmd.png'
-        'vmd.desktop')
-md5sums=('de8ccc48071b014a3e3ce334a0c06eae'
-         'f67c6a6ee0c8687a5879389f66e278ba'
-         'c8c75b50d50ebac416c525f8dfda3ed6')
-install='install.sh'
+source=("http://www.ks.uiuc.edu/Research/vmd/vmd-1.9/files/final/vmd-${pkgver}.bin.LINUX${_url_arch}.opengl.tar.gz")
+md5sums=('de8ccc48071b014a3e3ce334a0c06eae')
 
 
 build() {
